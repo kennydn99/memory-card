@@ -1,16 +1,14 @@
 import { useState } from "react";
+import Scoreboard from "./components/Scoreboard";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   return (
-    <>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
+    <div className="app">
+      <Scoreboard score={score} highScore={highScore}></Scoreboard>
+    </div>
   );
 }
 
