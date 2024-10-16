@@ -9,6 +9,7 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   const [cards, setCards] = useState([]);
   const [clickedCards, setClickedCards] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     fetchCardData().then((fetchedCards) => {
@@ -26,9 +27,9 @@ function App() {
 
   const handleCardClick = (cardId) => {
     // update score logic
-    console.log(`${cardId} was clicked!`);
     if (clickedCards.includes(cardId)) {
       // reset game if card has been clicked already
+      setGameOver(true);
       setScore(0);
       setClickedCards([]);
 
@@ -41,15 +42,37 @@ function App() {
       setScore(score + 1);
       setClickedCards([...clickedCards, cardId]);
 
-      // shuffle cards after valid click
-      shuffleCards();
+      // Check if player win
+      if (clickedCards.length + 1 === cards.length) {
+        setGameOver(true);
+        setHighScore(score + 1);
+      } else {
+        // shuffle cards after valid click
+        shuffleCards();
+      }
     }
+  };
+
+  const resetGame = () => {
+    setScore(0);
+    setClickedCards([]);
+    setGameOver(false);
+    shuffleCards();
   };
 
   return (
     <div className="app">
       <Scoreboard score={score} highScore={highScore}></Scoreboard>
-      <Gameboard cards={cards} handleCardClick={handleCardClick}></Gameboard>
+      {gameOver ? (
+        <div className="gameover">
+          <p>
+            {clickedCards.length === cards.length ? "You win!" : "Game over!"}
+          </p>
+          <button onClick={resetGame}>Restart Game</button>
+        </div>
+      ) : (
+        <Gameboard cards={cards} handleCardClick={handleCardClick} />
+      )}
     </div>
   );
 }
