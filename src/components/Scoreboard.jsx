@@ -6,6 +6,7 @@ export default function Scoreboard({ score, highScore }) {
         <p>
           Click on as many cards as you can...without clicking on the same card!
         </p>
+        <p>Refresh the page to play with new pokemon.</p>
       </div>
       <div className="scoreboard">
         <p>Current Score: {score}</p>

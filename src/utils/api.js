@@ -1,22 +1,40 @@
 export const fetchCardData = async () => {
   try {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=12");
+    // Generate an array of 12 unique random numbers between 1 and 150
+    const randomIds = generateRandomIds(12, 150);
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    // Fetch data for each of the random Pokémon
+    const pokemonPromises = randomIds.map((id) =>
+      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+    );
 
-    const data = await response.json();
+    // Wait for all promises to resolve and extract relevant data
+    const pokemonData = await Promise.all(pokemonPromises);
 
-    return data.results.map((pokemon, index) => ({
-      id: index,
+    return pokemonData.map((pokemon) => ({
+      id: pokemon.id,
       name: pokemon.name,
-      image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-        index + 1
-      }.png`,
+      image: pokemon.sprites.front_default, // Use default front sprite
     }));
   } catch (error) {
     console.error("Failed to fetch the data:", error);
     return [];
   }
+};
+
+// Helper function to generate an array of unique random numbers
+const generateRandomIds = (count, max) => {
+  const randomIds = new Set();
+
+  while (randomIds.size < count) {
+    const randomId = Math.floor(Math.random() * max) + 1; // Generate numbers between 1 and `max`
+    randomIds.add(randomId);
+  }
+
+  return Array.from(randomIds);
 };

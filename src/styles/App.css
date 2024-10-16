@@ -20,9 +20,16 @@ body,
 }
 
 .header {
+  padding-top: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .gameboard {
@@ -40,9 +47,45 @@ body,
   flex-direction: column;
   align-items: center;
   height: 100%;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.card:hover {
+  box-shadow: 0 0 16px 8px #fdb44b;
 }
 
 .card img {
   height: 150px;
+}
+
+.scoreboard {
+  border: 2px solid #00bbf0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.gameover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-size: 100px;
+  color: #00bbf0;
+  transform: translateY(-100px);
+}
+
+.gameover button {
+  background-color: #005792;
+  color: white;
+  padding: 16px 24px;
+  border: 1px solid #00bbf0;
+  cursor: pointer;
+}
+
+.gameover button:hover {
+  border: 1px solid #fdb44b;
 }
