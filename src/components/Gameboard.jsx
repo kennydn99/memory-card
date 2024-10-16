@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
+
 export default function Gameboard({ cards, handleCardClick }) {
   // initialize empty array to store cards
   const [shuffledCards, setShuffledCards] = useState([]);
@@ -16,13 +17,13 @@ export default function Gameboard({ cards, handleCardClick }) {
 
   return (
     <div className="gameboard">
-      {shuffledCards.map((card) => {
+      {shuffledCards.map((card) => (
         <Card
           key={card.id}
           card={card}
-          handleCardClick={() => handleCardClick(card.id)}
-        ></Card>;
-      })}
+          handleClick={() => handleCardClick(card.id)}
+        ></Card>
+      ))}
     </div>
   );
 }

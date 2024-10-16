@@ -1,0 +1,23 @@
+body,
+p {
+  margin: 0;
+}
+
+body,
+#root,
+.app {
+  height: 100vh;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
